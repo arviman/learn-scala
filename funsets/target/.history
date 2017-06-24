@@ -1,0 +1,12 @@
+run
+test
+atest
+test
+assignment.sbt
+sbt assignment.sbt
+exit
+run
+compile
+test
+tes
+test

@@ -1,0 +1,14 @@
+[0m[[0minfo[0m] [0m[32mListTest:[0m[0m
+[0m[[0minfo[0m] [0m[31m- contains is implemented *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  java.util.NoSuchElementException: Nil.tail[0m[0m
+[0m[[0minfo[0m] [0m[31m  at funsets.Nil.tail(List.scala:25)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at funsets.Nil.tail(List.scala:22)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at funsets.nth$.nth(List.scala:31)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at funsets.test.ListTest$$anonfun$1.apply$mcV$sp(ListTest.scala:19)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at funsets.test.ListTest$$anonfun$1.apply(ListTest.scala:13)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at funsets.test.ListTest$$anonfun$1.apply(ListTest.scala:13)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer$$anonfun$apply$1.apply$mcV$sp(Transformer.scala:22)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$class.outcomeOf(OutcomeOf.scala:85)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m

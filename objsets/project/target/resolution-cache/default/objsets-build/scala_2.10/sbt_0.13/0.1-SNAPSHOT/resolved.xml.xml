@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
+  <info 
+  e:sbtVersion="0.13" e:scalaVersion="2.10" organisation="default" module="objsets-build" revision="0.1-SNAPSHOT">
+    <description></description>
+</info>
+  <configurations>
+    <conf name="plugin" visibility="public" description=""/>
+    <conf name="pom" visibility="public" description=""/>
+    <conf extends="runtime" name="test" visibility="public" description=""/>
+    <conf name="provided" visibility="public" description=""/>
+    <conf 
+    extends="compile,optional,provided" name="compile-internal" visibility="public" description="">
+</conf>
+    <conf name="docs" visibility="public" description=""/>
+    <conf name="optional" visibility="public" description=""/>
+    <conf name="compile" visibility="public" description=""/>
+    <conf 
+    extends="test,optional,provided" name="test-internal" visibility="public" description="">
+</conf>
+    <conf name="scala-tool" visibility="public" description=""/>
+    <conf name="sources" visibility="public" description=""/>
+    <conf extends="compile" name="runtime" visibility="public" description=""/>
+    <conf 
+    extends="runtime,optional" name="runtime-internal" visibility="public" description="">
+</conf>
+  </configurations>
+  <publications>
+    <artifact name="objsets-build" type="jar" ext="jar" conf="compile"/>
+    <artifact 
+    e:classifier="javadoc" name="objsets-build" type="doc" ext="jar" conf="compile">
+</artifact>
+    <artifact name="objsets-build" type="pom" ext="pom" conf="pom"/>
+    <artifact 
+    e:classifier="sources" name="objsets-build" type="src" ext="jar" conf="compile">
+</artifact>
+  </publications>
+  <dependencies>
+    <dependency 
+    org="org.scala-lang" name="scala-compiler" rev="2.10.5" conf="scala-tool-&gt;default">
+</dependency>
+    <dependency 
+    org="org.scala-lang" name="scala-compiler" rev="2.10.5" conf="scala-tool-&gt;optional(default)">
+</dependency>
+    <dependency 
+    org="org.scala-lang" name="scala-library" rev="2.10.5" conf="scala-tool-&gt;default">
+</dependency>
+    <dependency 
+    org="org.scala-lang" name="scala-library" rev="2.10.5" conf="scala-tool-&gt;optional(default)">
+</dependency>
+    <dependency 
+    org="org.scala-sbt" name="sbt" rev="0.13.9" conf="provided-&gt;default(compile)">
+</dependency>
+    <dependency 
+    e:sbtVersion="0.13" e:scalaVersion="2.10" org="org.scala-sbt" name="global-plugins" rev="0.0" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    e:sbtVersion="0.13" e:scalaVersion="2.10" org="org.scala-sbt" name="global-plugins" rev="0.0" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    e:sbtVersion="0.13" e:scalaVersion="2.10" org="org.scala-sbt" name="global-plugins" rev="0.0" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    e:sbtVersion="0.13" e:scalaVersion="2.10" org="org.scala-sbt" name="global-plugins" rev="0.0" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    org="org.scala-lang" name="scala-library" rev="2.10.5" conf="provided-&gt;default(compile)">
+</dependency>
+    <dependency 
+    org="org.scalastyle" name="scalastyle_2.10" rev="0.8.0" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    org="org.scalaj" name="scalaj-http_2.10" rev="2.2.1" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    org="commons-codec" name="commons-codec" rev="1.10" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    org="org.apache.commons" name="commons-lang3" rev="3.4" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    e:sbtVersion="0.13" e:scalaVersion="2.10" org="com.typesafe.sbteclipse" name="sbteclipse-plugin" rev="5.1.0" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    e:sbtVersion="0.13" e:scalaVersion="2.10" org="org.scala-js" name="sbt-scalajs" rev="0.6.11" conf="compile-&gt;default(compile)">
+</dependency>
+    <dependency 
+    e:sbtVersion="0.13" e:scalaVersion="2.10" org="io.get-coursier" name="sbt-coursier" rev="1.0.0-RC2" conf="compile-&gt;default(compile)">
+</dependency>
+  </dependencies>
+</ivy-module>

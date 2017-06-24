@@ -1,0 +1,12 @@
+[0m[[0mdebug[0m] [0mRunning TaskDef(funsets.test.ListTest, org.scalatest.tools.Framework$$anon$1@16e20c39, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(funsets.FunSetSuite, org.scalatest.tools.Framework$$anon$1@16e20c39, false, [SuiteSelector])[0m
+[0m[[0minfo[0m] [0m[36mRun completed in 330 milliseconds.[0m[0m
+[0m[[0minfo[0m] [0m[36mTotal number of tests run: 10[0m[0m
+[0m[[0minfo[0m] [0m[36mSuites: completed 2, aborted 0[0m[0m
+[0m[[0minfo[0m] [0m[36mTests: succeeded 9, failed 1, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0minfo[0m] [0m[31m*** 1 TEST FAILED ***[0m[0m
+[0m[[0mdebug[0m] [0mPassed tests:[0m
+[0m[[0mdebug[0m] [0m	funsets.FunSetSuite[0m
+[0m[[31merror[0m] [0mFailed tests:[0m
+[0m[[31merror[0m] [0m	funsets.test.ListTest[0m
+[0m[[31merror[0m] [0m(test:[31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m

@@ -1,0 +1,22 @@
+test
+compile
+test
+testOnly TweetSetSuite
+testOnly TweetSetSuite -- -z "filter: on empty set"
+testOnly objsets.TweetSetSuite -- -z "filter: on empty set"
+testOnly objsets.TweetSetSuite -- -z 
+testOnly objsets.TweetSetSuite -- -z "descending: set5"
+compile
+test
+exit
+test
+compile
+test
+exit
+test
+exit
+test
+compile
+test
+quit
+exit
