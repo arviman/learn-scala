@@ -2,6 +2,8 @@ package objsets
 
 import TweetReader._
 
+import scala.collection.immutable.Stream.Empty
+
 /**
   * A class to represent tweets.
   */
@@ -152,11 +154,8 @@ class NonEmpty(val elem: Tweet,val left: TweetSet,val right: TweetSet) extends T
   }
 
   override def union(that: TweetSet): TweetSet = {
-    var firstSet: TweetSet = this;
-    firstSet.foreach(tw=>println("BEFORE CALL having "+ tw.user))
-    println("lets add to " + firstSet);
-    that.foreach(tweet=> {println("adding " + tweet + " to " + firstSet);firstSet = firstSet.incl(tweet); })
-    firstSet.foreach(tw=>println("AFTER CALL having "+ tw.user))
+    var firstSet: TweetSet = this
+    that.foreach(tweet=> firstSet = firstSet.incl(tweet))
     firstSet
   }
 
@@ -217,13 +216,10 @@ class NonEmpty(val elem: Tweet,val left: TweetSet,val right: TweetSet) extends T
       if (leftVal != NullTweet && (rightVal == NullTweet || leftVal.retweets < rightVal.retweets)){
         minVal =  leftVal
         leftCopy = leftCopy.remove(leftVal)
-        printf("left selected. left size after remove is %d\n", leftCopy.size())
       }
        else if(rightVal != NullTweet){
         minVal = rightVal
-        printf("right selected. right size before remove is %d\n", rightCopy.size())
         rightCopy = rightCopy.remove(rightVal)
-        printf("right selected. right size after remove is %d\n", rightCopy.size())
        }
 
       if(minVal != NullTweet)
@@ -286,17 +282,26 @@ object GoogleVsApple {
   val google = List("android", "Android", "galaxy", "Galaxy", "nexus", "Nexus")
   val apple = List("ios", "iOS", "iphone", "iPhone", "ipad", "iPad")
 
-  lazy val googleTweets: TweetSet = ???
-  lazy val appleTweets: TweetSet = ???
+  lazy val all = TweetReader.allTweets
+  lazy val googleTweets: TweetSet = all.filter(t=>kwFn(t,google))
+  lazy val appleTweets: TweetSet = all.filter(t=>kwFn(t,apple))
+
+  def kwFn (x: Tweet, keywords: List[String]): Boolean ={
+    for (g <- keywords){
+      if(x.text.contains(g))
+        return true
+    }
+    false
+  }
 
   /**
     * A list of all tweets mentioning a keyword from either apple or google,
     * sorted by the number of retweets.
     */
-  lazy val trending: TweetList = ???
+  lazy val trending: TweetList = googleTweets.union(appleTweets).descendingByRetweet
 }
 
 object Main extends App {
   // Print the trending tweets
-  GoogleVsApple.trending foreach println
+  GoogleVsApple.trending.foreach((x:Tweet) => println(x))
 }

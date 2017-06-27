@@ -20,3 +20,8 @@ compile
 test
 quit
 exit
+run
+compile
+run
+compile
+run
