@@ -38,27 +38,19 @@ object Anagrams {
 
   /** Converts a sentence into its character occurrence list. */
   def sentenceOccurrences(s: Sentence): Occurrences = {
-    val occurrences = s.map(wordOccurrences(_))
-
-
     def sumOccurrances(acc:Occurrences, occ: List[Occurrences]) : Occurrences = {
       occ match {
         case Nil => acc
         case occurance :: tail => {
-
-
           var newAcc = acc.toMap
           for ((c, o) <- occurance) {
             newAcc = newAcc.updated(c, newAcc.getOrElse(c, 0) + o)
           }
           sumOccurrances(newAcc.toList, tail)
-
         }
       }
     }
-
-    val oc = List[(Char, Int)]()
-    sumOccurrances(oc, occurrences).sorted
+    sumOccurrances(List[(Char, Int)](), s.map(wordOccurrences)).sorted
   }
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
@@ -76,7 +68,20 @@ object Anagrams {
    *    List(('a', 1), ('e', 1), ('t', 1)) -> Seq("ate", "eat", "tea")
    *
    */
-  lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = ???
+  lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = {
+
+    val words = dictionary
+    var map = Map[Occurrences, List[Word]]()
+    for(word:Word <- words){
+      val occ:Occurrences = this.wordOccurrences(word)
+      if (map.contains(occ))
+        map = map.updated(occ, word::map.getOrElse(occ, List[Word]()))
+      else
+        map += occ->List(word)
+    }
+    map
+  }
+
 
   /** Returns all the anagrams of a given word. */
   def wordAnagrams(word: Word): List[Word] = dictionaryByOccurrences.get(wordOccurrences(word)).filterNot(_ == word).getOrElse(List[Word]()).sorted
@@ -102,16 +107,32 @@ object Anagrams {
    *
    *  Note that the order of the occurrence list subsets does not matter -- the subsets
    *  in the example above could have been displayed in some other order.
+    *
+    *  lets start with a2 b2 -- we filter out all the nonzero occ of this.. we get a2 b2 lets add to acc
+    *  we then subtract first element to get a1 b2..
+    *  so we have a2b2 in our bag and try a1b2 and a2b1 etc get the combos for that and merge
+    *
    */
   def combinations(occurrences: Occurrences): List[Occurrences] = {
-    def addOnCombo(acc: List[Occurrences] , cur: Occurrences) : List[Occurrences]={
-      val nonZeroOccur:Occurrences = cur.filterNot(_._2 == 0)
+    def addOnCombo(acc: List[Occurrences] , occ: Occurrences) : List[Occurrences]={
+      val nonZeroOccur:Occurrences = occ.filterNot(_._2 == 0)
       if(nonZeroOccur.isEmpty)
         return acc
-      val newOccurMinusOne: Occurrences = nonZeroOccur.updated(0,(nonZeroOccur.head._1,nonZeroOccur.head._2-1) )
-      addOnCombo(newOccurMinusOne :: acc  ,newOccurMinusOne)
+      var newAcc = nonZeroOccur :: acc
+
+      for(i <- nonZeroOccur.indices) yield {
+
+        val item = nonZeroOccur(i)
+        var newOccurMinusOne: Occurrences = nonZeroOccur.updated(i,(item._1,item._2-1) )
+        if(newOccurMinusOne.head._2 == 0)
+          newOccurMinusOne = newOccurMinusOne.take(i) ++ newOccurMinusOne.drop(i+1)
+        newAcc = addOnCombo(newAcc  ,newOccurMinusOne)
+      }
+      newAcc
+
     }
-    addOnCombo(List[Occurrences](), occurrences)
+    val emptyOcc:Occurrences = List[(Char, Int)]()
+    addOnCombo(List[Occurrences](emptyOcc), occurrences)
   }
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
@@ -124,7 +145,10 @@ object Anagrams {
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences = {
+    val sub = for (xi <- x) yield  (xi._1, xi._2 - y.find(_._1==xi._1).map(_._2).getOrElse(0))
+    sub.filterNot(_._2 == 0).sorted
+  }
 
   /** Returns a list of all anagram sentences of the given sentence.
    *
@@ -166,5 +190,54 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = occurenceAnagrams(sentenceOccurrences(sentence))
+
+  def occurenceAnagrams(occurrence: Occurrences): List[Sentence] = {
+
+    val combinationsOccurrence = this.combinations(occurrence)
+    /*var remaining = occ
+    for (combo <- combinationsOccurrence) {
+      remaining = this.subtract(remaining, combo)
+    }*/
+    val remaining = (occurrence /: combinationsOccurrence)(subtract)
+
+
+    val remainingSentences = if(remaining.nonEmpty) occurenceAnagrams(remaining) else List[Sentence]()
+    /*
+    list of words that are buildable by this occurrence
+     */
+    def getSentence(numChars:Occurrences) : List[Sentence] = {
+      val words : List[Word] = this.dictionaryByOccurrences.getOrElse(numChars, List[Word]())
+
+      if(words.isEmpty)
+        return List[Sentence]()
+
+      def mergeSentences( words : List[Word], rs: List[Sentence]) : List[Sentence] = {
+
+        val ret : List[Sentence] =
+        if(words.isEmpty) {
+          if(remainingSentences.isEmpty)
+            List[Sentence]()
+          else
+            remainingSentences
+        }else{
+          if(remainingSentences.isEmpty)
+            words.map(List[Word](_))
+          else
+            for {word <- words
+               rs <- remainingSentences}
+            yield word :: rs
+        }
+        ret
+      }
+      val mergedWords : List[Sentence] = mergeSentences(words,remainingSentences)
+      println(s"got merged $mergedWords from $words and $remainingSentences ")
+      mergedWords
+    }
+    val sentences = for (combo <- combinationsOccurrence) yield getSentence(combo)
+    println(sentences + " having size " + sentences.size)
+
+    sentences.flatten
+
+  }
 }

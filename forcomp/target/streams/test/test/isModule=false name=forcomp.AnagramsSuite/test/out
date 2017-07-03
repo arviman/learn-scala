@@ -2,3 +2,13 @@
 [0m[[0minfo[0m] [0m[32m- wordOccurrences: abcd[0m[0m
 [0m[[0minfo[0m] [0m[32m- wordOccurrences: Robert[0m[0m
 [0m[[0minfo[0m] [0m[32m- sentenceOccurrences: abcd e[0m[0m
+[0m[[0minfo[0m] [0m[32m- dictionaryByOccurrences.get: eat[0m[0m
+[0m[[0minfo[0m] [0m[32m- word anagrams: married[0m[0m
+[0m[[0minfo[0m] [0m[32m- word anagrams: player[0m[0m
+[0m[[0minfo[0m] [0m[32m- subtract: lard - r[0m[0m
+[0m[[0minfo[0m] [0m[32m- combinations: [][0m[0m
+[0m[[0minfo[0m] [0m[32m- combinations: abba[0m[0m
+[0m[[0minfo[0m] [0m[31m- sentence anagrams: [] *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  List() did not equal List(List()) (AnagramsSuite.scala:97)[0m[0m
+[0m[[0minfo[0m] [0m[31m- sentence anagrams: Linux rulez *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  Set(List("urn"), List("rill"), List("lure"), List("nu"), List("null"), List("Eli"), List("run"), List("re"), List("Neil"), List("Liz"), List("rule"), List("en"), List("lie"), List("nil"), List("Zen"), List("line"), List("ire"), List("Linux"), List("lieu"), List("lien"), List("Zulu"), List("Lin"), List("Nile"), List("Unix"), List("Rex"), List("liner"), List("Uzi"), List("Nell"), List("ill"), List("rulez"), List("urine"), List("Uri"), List("ex"), List("rein"), List("ruin"), List("rue"), List("in"), List("Len")) did not equal Set(List("Zulu", "nil", "Rex"), List("null", "Uzi", "Rex"), List("Zulu", "Lin", "Rex"), List("Uzi", "null", "Rex"), List("Uzi", "Rex", "null"), List("Rex", "Uzi", "null"), List("Lin", "Rex", "Zulu"), List("nil", "Rex", "Zulu"), List("nil", "Zulu", "Rex"), List("null", "Rex", "Uzi"), List("Rex", "Zulu", "Lin"), List("Rex", "nil", "Zulu"), List("Rex", "null", "Uzi"), List("Zulu", "Rex", "Lin"), List("Zulu", "Rex", "nil"), List("rulez", "Linux"), List("Rex", "Lin", "Zulu"), List("Rex", "Zulu", "nil"), List("Lin", "Zulu", "Rex"), List("Linux", "rulez")) (AnagramsSuite.scala:124)[0m[0m
